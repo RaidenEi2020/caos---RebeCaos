@@ -113,8 +113,8 @@ object Site:
                               doc: Documentation
                              ): Widget[Unit] =
     try w._2 match {
-      case VisualizeRemote(buildCmd, parseToString, generateHtml, remember, service) => 
-        new RemoteVisualizeText(buildCmd, parseToString, getRaw, get, generateHtml, remember, service, w._1,out,doc)
+      case VisualizeRemote(buildCmd, prettyPrinter, generateHtml, remember, service) => 
+        new RemoteVisualizeText(buildCmd, prettyPrinter, getRaw, get, generateHtml, remember, service, w._1,out,doc)
       
       case Visualize(view,Mermaid,pre) => new VisualiseMermaid(()=>view(pre(get())),w._1,out,doc)
       case Visualize(view,Text,pre) => new VisualiseText(()=>view(pre(get())),w._1,out,doc)

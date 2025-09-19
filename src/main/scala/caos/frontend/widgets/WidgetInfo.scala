@@ -27,7 +27,7 @@ object WidgetInfo:
    * @tparam Stx Type of the data structure being analysed.
    */
 
-  case class VisualizeRemote[Stx](buildCmd: Either[(Stx, Stx => String) => String, String => String], parseToString: Option[Stx => String], generateHtml: String => String, remember: Boolean, service: String)
+  case class VisualizeRemote[Stx](buildCmd: Either[(Stx, Stx => String) => String, String => String], prettyPrinter: Option[Stx => String], generateHtml: String => String, remember: Boolean, service: String)
     extends WidgetInfo[Stx]
   
   case class Visualize[Stx,S](v:S=>View, typ:ViewType, pre:Stx=>S)

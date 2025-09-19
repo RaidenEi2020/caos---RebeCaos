@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
-class RemoteVisualizeText[Stx](buildCmd: Either[(Stx, Stx => String) => String, String => String], parseToString: Option[Stx => String], raw: () => String, parsedRaw: () => Stx, generateHtml: String => String, remember: Boolean, service: String,
+class RemoteVisualizeText[Stx](buildCmd: Either[(Stx, Stx => String) => String, String => String], prettyPrinter: Option[Stx => String], raw: () => String, parsedRaw: () => Stx, generateHtml: String => String, remember: Boolean, service: String,
                                name: String, errorBox: OutputArea, doc: Documentation)
   extends Widget[Unit](name, doc):
 
@@ -72,7 +72,7 @@ class RemoteVisualizeText[Stx](buildCmd: Either[(Stx, Stx => String) => String, 
 
   def buildUrl: String = {
     val cmd = buildCmd match {
-      case Left(f) => f(parsedRaw(), parseToString.get)
+      case Left(f) => f(parsedRaw(), prettyPrinter.get)
       case Right(f) => f(raw())
     }
     s"http://$service/run-process?cmd=${java.net.URLEncoder.encode(cmd, "UTF-8")}&token=$token"

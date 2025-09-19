@@ -58,11 +58,11 @@ object Configurator:
    * @return the WidgetInfo describing how to create the widget
    */
 
-  def viewRemoteAux[Stx](buildCmd: Either[(Stx, Stx => String) => String, String => String], parseToString: Option[Stx => String], generateHtml: String => String, remember: Boolean = false, service: String): WidgetInfo[Stx] =
-    VisualizeRemote[Stx](buildCmd, parseToString, generateHtml, remember, service)
+  def viewRemoteAux[Stx](buildCmd: Either[(Stx, Stx => String) => String, String => String], prettyPrinter: Option[Stx => String], generateHtml: String => String, remember: Boolean = false, service: String): WidgetInfo[Stx] =
+    VisualizeRemote[Stx](buildCmd, prettyPrinter, generateHtml, remember, service)
 
-  def viewRemote[Stx](buildCmd: (Stx, Stx => String) => String, parseToString: Stx => String, generateHtml: String => String, remember: Boolean = false, service: String = "localhost:8080"): WidgetInfo[Stx] = {
-    viewRemoteAux[Stx](Left(buildCmd), Some(parseToString), generateHtml, remember, service)
+  def viewRemote[Stx](buildCmd: (Stx, Stx => String) => String, prettyPrinter: Stx => String, generateHtml: String => String, remember: Boolean = false, service: String = "localhost:8080"): WidgetInfo[Stx] = {
+    viewRemoteAux[Stx](Left(buildCmd), Some(prettyPrinter), generateHtml, remember, service)
   }
 
   def viewRemoteRaw[Stx](buildCmd: String => String, generateHtml: String => String, remember: Boolean = false, service: String = "localhost:8080"): WidgetInfo[Stx] = {
